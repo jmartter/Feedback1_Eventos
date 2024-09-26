@@ -1,3 +1,4 @@
+// LoginScreen.kt
 package com.example.feedback1_eventos
 
 import androidx.compose.foundation.layout.*
@@ -10,9 +11,10 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun LoginScreen(onLogin: (String, String) -> Unit, modifier: Modifier = Modifier) {
+fun LoginScreen(onLogin: (String, String, (String) -> Unit) -> Unit, modifier: Modifier = Modifier) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var message by remember { mutableStateOf<String?>(null) }
 
     Column(
         modifier = modifier
@@ -37,10 +39,20 @@ fun LoginScreen(onLogin: (String, String) -> Unit, modifier: Modifier = Modifier
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { onLogin(username, password) },
+            onClick = { onLogin(username, password) { msg -> message = msg } },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Login")
+        }
+        message?.let {
+            Snackbar(
+                action = {
+                    Button(onClick = { message = null }) {
+                        Text("Dismiss")
+                    }
+                },
+                modifier = Modifier.padding(8.dp)
+            ) { Text(it) }
         }
     }
 }
@@ -48,5 +60,5 @@ fun LoginScreen(onLogin: (String, String) -> Unit, modifier: Modifier = Modifier
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen(onLogin = { _, _ -> })
+    LoginScreen(onLogin = { _, _, _ -> })
 }
