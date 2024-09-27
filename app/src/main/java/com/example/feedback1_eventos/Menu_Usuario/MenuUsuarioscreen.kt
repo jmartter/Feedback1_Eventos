@@ -1,4 +1,4 @@
-// MenuUsuarioscreen.kt
+// MenuUsuarioScreen.kt
 package com.example.feedback1_eventos
 
 import android.content.Intent
@@ -9,14 +9,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.feedback1_eventos.Inicio.LoginActivity
 
 @Composable
-fun MenuUsuarioScreen(userName: String, onBack: () -> Unit, modifier: Modifier = Modifier) {
+fun MenuUsuarioScreen(userName: String, onBack: () -> Unit, onAddNovela: () -> Unit, onViewUserNovelas: () -> Unit, onViewInitialNovelas: () -> Unit, modifier: Modifier = Modifier) {
     val context = LocalContext.current
 
     Scaffold { innerPadding ->
@@ -43,35 +43,24 @@ fun MenuUsuarioScreen(userName: String, onBack: () -> Unit, modifier: Modifier =
             ) {
                 Text(text = "Welcome to MenuUsuario, $userName", fontSize = 24.sp, modifier = Modifier.padding(bottom = 16.dp))
                 Button(
-                    onClick = { /* TODO: Add action */ },
+                    onClick = onAddNovela,
                     modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
                 ) {
                     Text("Añadir Novela")
                 }
                 Button(
-                    onClick = { /* TODO: Add action */ },
+                    onClick = onViewUserNovelas,
                     modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
                 ) {
-                    Text("Eliminar Novela")
+                    Text("Ver Mis Novelas")
                 }
                 Button(
-                    onClick = { /* TODO: Add action */ },
+                    onClick = onViewInitialNovelas,
                     modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
                 ) {
-                    Text("Ver Detalles de la Novela")
+                    Text("Ver Otras Novelas")
                 }
-                Button(
-                    onClick = { /* TODO: Add action */ },
-                    modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
-                ) {
-                    Text("Marcar como Favorito")
-                }
-                Button(
-                    onClick = { /* TODO: Add action */ },
-                    modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
-                ) {
-                    Text("Añadir Reseña")
-                }
+                // Other buttons...
             }
         }
     }
@@ -80,5 +69,5 @@ fun MenuUsuarioScreen(userName: String, onBack: () -> Unit, modifier: Modifier =
 @Preview(showBackground = true)
 @Composable
 fun MenuUsuarioScreenPreview() {
-    MenuUsuarioScreen(userName = "User", onBack = {})
+    MenuUsuarioScreen(userName = "User", onBack = {}, onAddNovela = {}, onViewUserNovelas = {}, onViewInitialNovelas = {})
 }

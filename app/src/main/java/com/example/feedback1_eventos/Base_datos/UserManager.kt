@@ -1,13 +1,11 @@
 // UserManager.kt
 package com.example.feedback1_eventos.Base_datos
 
-import com.example.feedback1_eventos.User
-
 object UserManager {
     private val users = mutableListOf<User>()
 
     init {
-        // Agrega un usuario por defecto
+        // Add a default user with an empty list of novels
         users.add(User("1", "1"))
     }
 
@@ -17,5 +15,14 @@ object UserManager {
 
     fun getUser(username: String, password: String): User? {
         return users.find { it.username == username && it.password == password }
+    }
+
+    fun addNovelaToUser(username: String, novela: Novela) {
+        val user = users.find { it.username == username }
+        user?.novelas?.add(novela)
+    }
+
+    fun getNovelasForUser(username: String): List<Novela>? {
+        return users.find { it.username == username }?.novelas
     }
 }
