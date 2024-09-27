@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.example.feedback1_eventos.LoginScreen
-import com.example.feedback1_eventos.MainActivity
 import com.example.feedback1_eventos.Base_datos.UserManager
 
 class LoginActivity : ComponentActivity() {
@@ -17,7 +16,8 @@ class LoginActivity : ComponentActivity() {
                 onLogin = { username: String, password: String, showMessage ->
                     val user = UserManager.getUser(username, password)
                     if (user != null) {
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        val intent = Intent(this@LoginActivity, MenuUsuarioActivity::class.java)
+                        intent.putExtra("username", user.username) // Pass the username
                         startActivity(intent)
                         finish()
                     } else {
