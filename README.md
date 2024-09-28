@@ -64,9 +64,22 @@ El código de este proyecto se encuentra en la siguiente ruta:
 - Permite borrar, añadir reseña, ver detalles y marcar como favorito una novela.
 
 ## Muestra de la Aplicación
-| LoginScreen | MenuUsuarioScreen | AddNovelaScreen | ViewNovelasScreen | ViewNovelaDetailScreen |
-|-------------|-------------------|-----------------|-------------------|------------------------|
-| ![LoginScreen](res/1.png) | ![MenuUsuarioScreen](res/2.png) | ![AddNovelaScreen](res/3.png) | ![ViewNovelasScreen](res/4.png) | ![ViewNovelaDetailScreen](res/5.png) |
+<table>
+  <tr>
+    <th>LoginScreen</th>
+    <th>MenuUsuarioScreen</th>
+    <th>AddNovelaScreen</th>
+    <th>ViewNovelasScreen</th>
+    <th>ViewNovelaDetailScreen</th>
+  </tr>
+  <tr>
+    <td><img src="res/1.png" alt="LoginScreen" width="200"/></td>
+    <td><img src="res/2.png" alt="MenuUsuarioScreen" width="200"/></td>
+    <td><img src="res/3.png" alt="AddNovelaScreen" width="200"/></td>
+    <td><img src="res/4.png" alt="ViewNovelasScreen" width="200"/></td>
+    <td><img src="res/5.png" alt="ViewNovelaDetailScreen" width="200"/></td>
+  </tr>
+</table>
 
 ## Notas de Desarrollo
 Inicialmente, intente implementar una lista de usuarios donde cada uno tuviera sus propias credenciales. Sin embargo, enconté problemas ya que los favoritos y las novelas se sincronizaban entre los usuarios. Debido a estos errores, decidí eliminar la opción de añadir usuarios y simplificar la funcionalidad en este aspecto.
