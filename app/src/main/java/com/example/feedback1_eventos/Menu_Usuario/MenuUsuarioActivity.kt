@@ -40,13 +40,19 @@ fun MenuUsuarioContent(userName: String) {
         showUserNovelasScreen -> {
             ViewNovelasScreen(
                 novelas = UserManager.getNovelasForUser(userName) ?: emptyList(),
-                onBack = { showUserNovelasScreen = false }
+                onBack = { showUserNovelasScreen = false },
+                onDeleteNovela = { novela ->
+                    UserManager.deleteNovelaFromUser(userName, novela)
+                }
             )
         }
         showInitialNovelasScreen -> {
             ViewNovelasScreen(
-                novelas = initialNovels,
-                onBack = { showInitialNovelasScreen = false }
+                novelas = UserManager.getInitialNovels(),
+                onBack = { showInitialNovelasScreen = false },
+                onDeleteNovela = { novela ->
+                    UserManager.deleteNovelaFromInitial(novela)
+                }
             )
         }
         else -> {

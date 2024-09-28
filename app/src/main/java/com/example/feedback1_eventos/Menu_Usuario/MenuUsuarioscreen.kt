@@ -60,7 +60,7 @@ fun MenuUsuarioScreen(userName: String, onBack: () -> Unit, onAddNovela: () -> U
                 ) {
                     Text("Ver Otras Novelas")
                 }
-                // Other buttons...
+
             }
         }
     }

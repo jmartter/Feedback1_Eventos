@@ -15,9 +15,10 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
 import kotlinx.coroutines.launch
 import com.example.feedback1_eventos.Base_datos.Novela
+import com.example.feedback1_eventos.Base_datos.UserManager
 
 @Composable
-fun ViewNovelasScreen(novelas: List<Novela>, onBack: () -> Unit, modifier: Modifier = Modifier) {
+fun ViewNovelasScreen(novelas: List<Novela>, onBack: () -> Unit, modifier: Modifier = Modifier, onDeleteNovela: (Novela) -> Unit) {
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     var selectedNovela by remember { mutableStateOf<Novela?>(null) }
@@ -46,14 +47,12 @@ fun ViewNovelasScreen(novelas: List<Novela>, onBack: () -> Unit, modifier: Modif
                     items(novelas) { novela ->
                         Column(
                             modifier = Modifier
-                                .padding(bottom = 8.dp)
+                                .fillMaxWidth()
                                 .clickable { selectedNovela = novela }
+                                .padding(8.dp)
                         ) {
-                            Text(text = novela.titulo, fontSize = 16.sp, modifier = Modifier.padding(bottom = 4.dp))
-                            Text(text = "Autor: ${novela.autor}", fontSize = 14.sp, modifier = Modifier.padding(bottom = 4.dp))
-                            Text(text = "Año: ${novela.anoPublicacion}", fontSize = 14.sp, modifier = Modifier.padding(bottom = 4.dp))
-                            Text(text = "Sinopsis: ${novela.sinopsis}", fontSize = 14.sp, modifier = Modifier.padding(bottom = 8.dp))
-                            Divider()
+                            Text(text = novela.titulo, fontSize = 20.sp)
+                            Text(text = novela.autor, fontSize = 16.sp)
                         }
                     }
                 }
@@ -92,7 +91,10 @@ fun ViewNovelasScreen(novelas: List<Novela>, onBack: () -> Unit, modifier: Modif
             title = { Text(text = "Opciones para ${novela.titulo}") },
             text = {
                 Column {
-                    TextButton(onClick = { /* Lógica para borrar la novela */ }) {
+                    TextButton(onClick = {
+                        onDeleteNovela(novela)
+                        selectedNovela = null
+                    }) {
                         Text("Borrar")
                     }
                     TextButton(onClick = { /* Lógica para añadir reseña */ }) {
