@@ -17,6 +17,7 @@ fun AddNovelaScreen(onBack: () -> Unit, onAddNovela: (Novela) -> Unit, modifier:
     var autor by remember { mutableStateOf("") }
     var anoPublicacion by remember { mutableStateOf("") }
     var sinopsis by remember { mutableStateOf("") }
+    var message by remember { mutableStateOf<String?>(null) }
 
     Scaffold { innerPadding ->
         Box(
@@ -67,12 +68,31 @@ fun AddNovelaScreen(onBack: () -> Unit, onAddNovela: (Novela) -> Unit, modifier:
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
                     onClick = {
-                        val novela = Novela(titulo, autor, anoPublicacion.toIntOrNull() ?: 0, sinopsis)
-                        onAddNovela(novela)
+                        if (titulo.isBlank() || autor.isBlank() || anoPublicacion.isBlank() || sinopsis.isBlank()) {
+                            message = "Todos los campos son obligatorios"
+                        } else {
+                            try {
+                                val ano = anoPublicacion.toInt()
+                                val novela = Novela(titulo, autor, ano, sinopsis)
+                                onAddNovela(novela)
+                            } catch (e: NumberFormatException) {
+                                message = "Año de Publicación debe ser un número"
+                            }
+                        }
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Añadir Novela")
+                    Text("Añadir")
+                }
+                message?.let {
+                    Snackbar(
+                        action = {
+                            Button(onClick = { message = null }) {
+                                Text("Dismiss")
+                            }
+                        },
+                        modifier = Modifier.padding(8.dp)
+                    ) { Text(it) }
                 }
             }
         }
