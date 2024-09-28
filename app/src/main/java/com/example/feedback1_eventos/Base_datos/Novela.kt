@@ -5,5 +5,6 @@ data class Novela(
     val titulo: String,
     val autor: String,
     val anoPublicacion: Int,
-    val sinopsis: String
+    val sinopsis: String,
+    var isFavorite: Boolean = false
 )

@@ -48,7 +48,10 @@ fun ViewNovelasScreen(novelas: List<Novela>, onBack: () -> Unit, modifier: Modif
                     onDeleteNovela(novela)
                     selectedNovela = null
                 },
-                onView = { showNovelaDetail = true }
+                onView = { showNovelaDetail = true },
+                onToggleFavorite = {
+                    novela.isFavorite = !novela.isFavorite
+                }
             )
         }
     }
