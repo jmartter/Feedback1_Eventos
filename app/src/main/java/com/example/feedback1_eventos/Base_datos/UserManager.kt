@@ -17,13 +17,8 @@ object UserManager {
         return users.find { it.username == username && it.password == password }
     }
 
-    fun addNovelaToUser(username: String, novela: Novela) {
-        val user = users.find { it.username == username }
-        user?.novelas?.add(novela)
-    }
-
-    fun getNovelasForUser(username: String): List<Novela>? {
-        return users.find { it.username == username }?.novelas
+    fun isUsernameTaken(username: String): Boolean {
+        return users.any { it.username == username }
     }
 
     fun deleteNovelaFromUser(username: String, novela: Novela) {
@@ -37,5 +32,14 @@ object UserManager {
 
     fun deleteNovelaFromInitial(novela: Novela) {
         mutableInitialNovels.remove(novela)
+    }
+
+    fun addNovelaToUser(username: String, novela: Novela) {
+        val user = users.find { it.username == username }
+        user?.novelas?.add(novela)
+    }
+
+    fun getNovelasForUser(username: String): List<Novela>? {
+        return users.find { it.username == username }?.novelas
     }
 }

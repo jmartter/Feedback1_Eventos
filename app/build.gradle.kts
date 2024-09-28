@@ -73,5 +73,6 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.2.0")
     implementation("androidx.room:room-runtime:2.3.0")
     annotationProcessor("androidx.room:room-compiler:2.3.0")
-    implementation("androidx.compose.material:material-icons-extended:1.0.0") // Add this line
+    implementation("androidx.compose.material:material-icons-extended:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0") // Add this line
 }
