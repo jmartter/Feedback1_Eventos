@@ -1,4 +1,4 @@
-// LoginScreen.kt
+// NewUserScreen.kt
 package com.example.feedback1_eventos
 
 import androidx.compose.foundation.layout.*
@@ -9,52 +9,42 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun LoginScreen(onLogin: (String, String, (String) -> Unit) -> Unit, onNewUser: () -> Unit, modifier: Modifier = Modifier) {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var message by remember { mutableStateOf<String?>(null) }
-
+fun NewUserScreen(onBack: () -> Unit, onUserCreated: (String) -> Unit, modifier: Modifier = Modifier, viewModel: NewUserViewModel = viewModel()) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Login", fontSize = 24.sp, modifier = Modifier.padding(bottom = 16.dp))
+        Text(text = "Nuevo Usuario", fontSize = 24.sp, modifier = Modifier.padding(bottom = 16.dp))
         OutlinedTextField(
-            value = username,
-            onValueChange = { username = it },
-            label = { Text("Username") },
+            value = viewModel.username,
+            onValueChange = { viewModel.username = it },
+            label = { Text("Nombre de Usuario") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
+            value = viewModel.password,
+            onValueChange = { viewModel.password = it },
+            label = { Text("Contraseña") },
             modifier = Modifier.fillMaxWidth(),
             visualTransformation = PasswordVisualTransformation()
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { onLogin(username, password) { msg -> message = msg } },
+            onClick = { viewModel.createUser(onUserCreated) },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Login")
+            Text("Crear Usuario")
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(
-            onClick = onNewUser,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Nuevo Usuario")
-        }
-        message?.let {
+        viewModel.message?.let {
             Snackbar(
                 action = {
-                    Button(onClick = { message = null }) {
+                    Button(onClick = { viewModel.message = null }) {
                         Text("Dismiss")
                     }
                 },
@@ -66,6 +56,6 @@ fun LoginScreen(onLogin: (String, String, (String) -> Unit) -> Unit, onNewUser: 
 
 @Preview(showBackground = true)
 @Composable
-fun LoginScreenPreview() {
-    LoginScreen(onLogin = { _, _, _ -> }, onNewUser = {})
+fun NewUserScreenPreview() {
+    NewUserScreen(onBack = {}, onUserCreated = {})
 }
