@@ -7,7 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.*
 import com.example.feedback1_eventos.MenuUsuarioScreen
 import com.example.feedback1_eventos.AddNovelaScreen
-import com.example.feedback1_eventos.ViewNovelasScreen
+import ViewNovelasScreen
 import com.example.feedback1_eventos.Base_datos.UserManager
 import com.example.feedback1_eventos.Base_datos.initialNovels
 
