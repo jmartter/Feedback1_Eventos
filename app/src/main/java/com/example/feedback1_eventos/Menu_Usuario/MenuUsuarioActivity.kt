@@ -1,15 +1,19 @@
+// MenuUsuarioActivity.kt
 package com.example.feedback1_eventos.Inicio
 
-import android.content.Intent
+import ViewNovelasScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.*
-import com.example.feedback1_eventos.MenuUsuarioScreen
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import com.example.feedback1_eventos.AddNovelaScreen
-import ViewNovelasScreen
+import com.example.feedback1_eventos.MenuUsuarioScreen
 import com.example.feedback1_eventos.Base_datos.UserManager
-import com.example.feedback1_eventos.Base_datos.initialNovels
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+
 
 class MenuUsuarioActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +29,6 @@ class MenuUsuarioActivity : ComponentActivity() {
 fun MenuUsuarioContent(userName: String) {
     var showAddNovelaScreen by remember { mutableStateOf(false) }
     var showUserNovelasScreen by remember { mutableStateOf(false) }
-    var showInitialNovelasScreen by remember { mutableStateOf(false) }
 
     when {
         showAddNovelaScreen -> {
@@ -46,15 +49,6 @@ fun MenuUsuarioContent(userName: String) {
                 }
             )
         }
-        showInitialNovelasScreen -> {
-            ViewNovelasScreen(
-                novelas = UserManager.getInitialNovels(),
-                onBack = { showInitialNovelasScreen = false },
-                onDeleteNovela = { novela ->
-                    UserManager.deleteNovelaFromInitial(novela)
-                }
-            )
-        }
         else -> {
             MenuUsuarioScreen(
                 userName = userName,
@@ -62,8 +56,7 @@ fun MenuUsuarioContent(userName: String) {
                     // Handle back action
                 },
                 onAddNovela = { showAddNovelaScreen = true },
-                onViewUserNovelas = { showUserNovelasScreen = true },
-                onViewInitialNovelas = { showInitialNovelasScreen = true }
+                onViewUserNovelas = { showUserNovelasScreen = true }
             )
         }
     }

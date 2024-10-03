@@ -11,7 +11,11 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun LoginScreen(onLogin: (String, String, (String) -> Unit) -> Unit, modifier: Modifier = Modifier) {
+fun LoginScreen(
+    onLogin: (String, String, (String) -> Unit) -> Unit,
+    onRegister: (String, String, (String) -> Unit) -> Unit,
+    modifier: Modifier = Modifier
+) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var message by remember { mutableStateOf<String?>(null) }
@@ -44,6 +48,13 @@ fun LoginScreen(onLogin: (String, String, (String) -> Unit) -> Unit, modifier: M
         ) {
             Text("Login")
         }
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = { onRegister(username, password) { msg -> message = msg } },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Register")
+        }
         message?.let {
             Snackbar(
                 action = {
@@ -60,5 +71,5 @@ fun LoginScreen(onLogin: (String, String, (String) -> Unit) -> Unit, modifier: M
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen(onLogin = { _, _, _ -> })
+    LoginScreen(onLogin = { _, _, _ -> }, onRegister = { _, _, _ -> })
 }

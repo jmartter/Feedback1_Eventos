@@ -3,11 +3,6 @@ package com.example.feedback1_eventos.Base_datos
 
 object UserManager {
     private val users = mutableListOf<User>()
-    private val mutableInitialNovels = initialNovels.toMutableList()
-
-    init {
-        users.add(User("1", "1"))
-    }
 
     fun addUser(user: User) {
         users.add(user)
@@ -29,13 +24,5 @@ object UserManager {
     fun deleteNovelaFromUser(username: String, novela: Novela) {
         val user = users.find { it.username == username }
         user?.novelas?.remove(novela)
-    }
-
-    fun getInitialNovels(): List<Novela> {
-        return mutableInitialNovels
-    }
-
-    fun deleteNovelaFromInitial(novela: Novela) {
-        mutableInitialNovels.remove(novela)
     }
 }
