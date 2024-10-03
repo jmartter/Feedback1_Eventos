@@ -1,10 +1,10 @@
+// MenuUsuarioContent.kt
 import androidx.compose.runtime.*
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import com.example.feedback1_eventos.AddNovelaScreen
 import com.example.feedback1_eventos.Base_datos.Novela
 import com.example.feedback1_eventos.Base_datos.UserManager
 import com.example.feedback1_eventos.MenuUsuarioScreen
+
 
 @Composable
 fun MenuUsuarioContent(userName: String) {
@@ -12,9 +12,11 @@ fun MenuUsuarioContent(userName: String) {
     var showUserNovelasScreen by remember { mutableStateOf(false) }
     var novelas by remember { mutableStateOf<List<Novela>>(emptyList()) }
 
-    if (showUserNovelasScreen) {
-        UserManager.getNovelasForUser(userName) { fetchedNovelas ->
-            novelas = fetchedNovelas ?: emptyList()
+    LaunchedEffect(showUserNovelasScreen) {
+        if (showUserNovelasScreen) {
+            UserManager.getNovelasForUser(userName) { fetchedNovelas ->
+                novelas = fetchedNovelas ?: emptyList()
+            }
         }
     }
 
