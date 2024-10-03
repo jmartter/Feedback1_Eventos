@@ -1,28 +1,66 @@
 // UserManager.kt
 package com.example.feedback1_eventos.Base_datos
 
-object UserManager {
-    private val users = mutableListOf<User>()
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 
-    fun addUser(user: User) {
-        users.add(user)
+object UserManager {
+    private val db = FirebaseFirestore.getInstance()
+
+    fun getUser(username: String, password: String, callback: (User?) -> Unit) {
+        val userRef = db.collection("users").document(username)
+        userRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val user = document.toObject(User::class.java)
+                    if (user?.password == password) {
+                        callback(user)
+                    } else {
+                        callback(null)
+                    }
+                } else {
+                    callback(null)
+                }
+            }
+            .addOnFailureListener {
+                callback(null)
+            }
     }
 
-    fun getUser(username: String, password: String): User? {
-        return users.find { it.username == username && it.password == password }
+    fun registerUser(username: String, password: String, callback: (Boolean) -> Unit) {
+        val user = User(username, password)
+        db.collection("users").document(username).set(user)
+            .addOnSuccessListener {
+                callback(true)
+            }
+            .addOnFailureListener {
+                callback(false)
+            }
+    }
+
+    fun getNovelasForUser(username: String, callback: (List<Novela>?) -> Unit) {
+        val userRef = db.collection("users").document(username)
+        userRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val user = document.toObject(User::class.java)
+                    callback(user?.novelas)
+                } else {
+                    callback(null)
+                }
+            }
+            .addOnFailureListener {
+                callback(null)
+            }
     }
 
     fun addNovelaToUser(username: String, novela: Novela) {
-        val user = users.find { it.username == username }
-        user?.novelas?.add(novela)
-    }
-
-    fun getNovelasForUser(username: String): List<Novela>? {
-        return users.find { it.username == username }?.novelas
+        val userRef = db.collection("users").document(username)
+        userRef.update("novelas", FieldValue.arrayUnion(novela))
     }
 
     fun deleteNovelaFromUser(username: String, novela: Novela) {
-        val user = users.find { it.username == username }
-        user?.novelas?.remove(novela)
+        val userRef = db.collection("users").document(username)
+        userRef.update("novelas", FieldValue.arrayRemove(novela))
     }
 }
