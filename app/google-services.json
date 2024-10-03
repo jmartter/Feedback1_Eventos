@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "621234395614",
+    "project_id": "entreganovelas",
+    "storage_bucket": "entreganovelas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621234395614:android:5d6d17d9b4eec1d817654f",
+        "android_client_info": {
+          "package_name": "com.example.feedback1_eventos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZ-R8bWQnehV8vRXxXlcAxbofT83S5j2I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
