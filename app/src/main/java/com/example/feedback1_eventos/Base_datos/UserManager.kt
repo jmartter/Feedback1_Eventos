@@ -87,4 +87,31 @@ object UserManager {
                 callback(false)
             }
     }
+
+    fun addReview(username: String, novela: Novela, review: String, callback: (Boolean) -> Unit) {
+        val userRef = db.collection("users").document(username)
+        userRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val user = document.toObject(User::class.java)
+                    user?.let {
+                        val updatedNovelas = it.novelas.map { n ->
+                            if (n.titulo == novela.titulo) {
+                                n.copy(reseñas = (n.reseñas + review).toMutableList())
+                            } else {
+                                n
+                            }
+                        }
+                        userRef.update("novelas", updatedNovelas)
+                            .addOnSuccessListener { callback(true) }
+                            .addOnFailureListener { callback(false) }
+                    } ?: callback(false)
+                } else {
+                    callback(false)
+                }
+            }
+            .addOnFailureListener {
+                callback(false)
+            }
+    }
 }
