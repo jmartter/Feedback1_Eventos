@@ -46,14 +46,14 @@ fun LoginScreen(
             onClick = { onLogin(username, password) { msg -> message = msg } },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Login")
+            Text("Entrar")
         }
         Spacer(modifier = Modifier.height(8.dp))
         Button(
             onClick = { onRegister(username, password) { msg -> message = msg } },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Register")
+            Text("Crear nuevo usuario")
         }
         message?.let {
             Snackbar(

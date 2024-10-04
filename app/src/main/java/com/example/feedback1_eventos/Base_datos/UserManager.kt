@@ -29,13 +29,21 @@ object UserManager {
 
     fun registerUser(username: String, password: String, callback: (Boolean) -> Unit) {
         val user = User(username, password)
-        db.collection("users").document(username).set(user)
-            .addOnSuccessListener {
-                callback(true)
-            }
-            .addOnFailureListener {
-                callback(false)
-            }
+        val userRef = db.collection("users").document(username)
+        userRef.set(user)
+            .addOnSuccessListener { callback(true) }
+            .addOnFailureListener { callback(false) }
+    }
+
+
+    fun addNovelaToUser(username: String, novela: Novela) {
+        val userRef = db.collection("users").document(username)
+        userRef.update("novelas", FieldValue.arrayUnion(novela))
+    }
+
+    fun deleteNovelaFromUser(username: String, novela: Novela) {
+        val userRef = db.collection("users").document(username)
+        userRef.update("novelas", FieldValue.arrayRemove(novela))
     }
 
     fun getNovelasForUser(username: String, callback: (List<Novela>?) -> Unit) {
@@ -52,15 +60,5 @@ object UserManager {
             .addOnFailureListener {
                 callback(null)
             }
-    }
-
-    fun addNovelaToUser(username: String, novela: Novela) {
-        val userRef = db.collection("users").document(username)
-        userRef.update("novelas", FieldValue.arrayUnion(novela))
-    }
-
-    fun deleteNovelaFromUser(username: String, novela: Novela) {
-        val userRef = db.collection("users").document(username)
-        userRef.update("novelas", FieldValue.arrayRemove(novela))
     }
 }

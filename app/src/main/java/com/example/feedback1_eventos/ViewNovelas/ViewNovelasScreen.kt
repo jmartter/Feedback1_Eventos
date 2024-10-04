@@ -1,18 +1,16 @@
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+// ViewNovelasScreen.kt
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.ui.Alignment
 import com.example.feedback1_eventos.Base_datos.Novela
+import com.example.feedback1_eventos.Base_datos.UserManager
 
 @Composable
-fun ViewNovelasScreen(novelas: List<Novela>, onBack: () -> Unit, modifier: Modifier = Modifier, onDeleteNovela: (Novela) -> Unit) {
+fun ViewNovelasScreen(novelas: List<Novela>, onBack: () -> Unit, modifier: Modifier = Modifier, onDeleteNovela: (Novela) -> Unit, username: String) {
     var selectedNovela by remember { mutableStateOf<Novela?>(null) }
     var showNovelaDetail by remember { mutableStateOf(false) }
 
@@ -51,9 +49,6 @@ fun ViewNovelasScreen(novelas: List<Novela>, onBack: () -> Unit, modifier: Modif
                 onView = { showNovelaDetail = true },
                 onToggleFavorite = {
                     novela.isFavorite = !novela.isFavorite
-                },
-                onAddReseña = { reseña ->
-                    novela.reseñas.add(reseña)
                 }
             )
         }

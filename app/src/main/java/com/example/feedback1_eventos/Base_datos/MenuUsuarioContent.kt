@@ -5,7 +5,6 @@ import com.example.feedback1_eventos.Base_datos.Novela
 import com.example.feedback1_eventos.Base_datos.UserManager
 import com.example.feedback1_eventos.MenuUsuarioScreen
 
-
 @Composable
 fun MenuUsuarioContent(userName: String) {
     var showAddNovelaScreen by remember { mutableStateOf(false) }
@@ -26,6 +25,7 @@ fun MenuUsuarioContent(userName: String) {
                 onBack = { showAddNovelaScreen = false },
                 onAddNovela = { novela ->
                     UserManager.addNovelaToUser(userName, novela)
+                    novelas = novelas + novela // Update the novelas list
                     showAddNovelaScreen = false
                 }
             )
@@ -36,14 +36,15 @@ fun MenuUsuarioContent(userName: String) {
                 onBack = { showUserNovelasScreen = false },
                 onDeleteNovela = { novela ->
                     UserManager.deleteNovelaFromUser(userName, novela)
-                }
+                    novelas = novelas - novela // Update the novelas list
+                },
+                username = userName
             )
         }
         else -> {
             MenuUsuarioScreen(
                 userName = userName,
                 onBack = {
-                    // Handle back action
                 },
                 onAddNovela = { showAddNovelaScreen = true },
                 onViewUserNovelas = { showUserNovelasScreen = true }

@@ -78,13 +78,7 @@ dependencies {
     implementation("androidx.room:room-runtime:2.3.0")
     annotationProcessor("androidx.room:room-compiler:2.3.0")
     implementation("androidx.compose.material:material-icons-extended:1.0.0")
-
-    // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
-
-    // Add the dependencies for Firebase products you want to use
-    // When using the BoM, don't specify versions in Firebase dependencies
     implementation("com.google.firebase:firebase-analytics")
-
     implementation("com.google.firebase:firebase-firestore-ktx")
 }

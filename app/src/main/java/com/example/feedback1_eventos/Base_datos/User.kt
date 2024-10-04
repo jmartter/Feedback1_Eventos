@@ -10,6 +10,5 @@ data class User(
     val password: String = "",
     val novelas: MutableList<Novela> = mutableListOf()
 ) {
-    // No-argument constructor for Firestore
     constructor() : this("", "", mutableListOf())
 }
