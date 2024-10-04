@@ -35,7 +35,6 @@ object UserManager {
             .addOnFailureListener { callback(false) }
     }
 
-
     fun addNovelaToUser(username: String, novela: Novela) {
         val userRef = db.collection("users").document(username)
         userRef.update("novelas", FieldValue.arrayUnion(novela))
@@ -59,6 +58,33 @@ object UserManager {
             }
             .addOnFailureListener {
                 callback(null)
+            }
+    }
+
+    fun toggleFavorite(username: String, novela: Novela, callback: (Boolean) -> Unit) {
+        val userRef = db.collection("users").document(username)
+        userRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val user = document.toObject(User::class.java)
+                    user?.let {
+                        val updatedNovelas = it.novelas.map { n ->
+                            if (n.titulo == novela.titulo) {
+                                n.copy(isFavorite = !n.isFavorite)
+                            } else {
+                                n
+                            }
+                        }
+                        userRef.update("novelas", updatedNovelas)
+                            .addOnSuccessListener { callback(true) }
+                            .addOnFailureListener { callback(false) }
+                    } ?: callback(false)
+                } else {
+                    callback(false)
+                }
+            }
+            .addOnFailureListener {
+                callback(false)
             }
     }
 }
