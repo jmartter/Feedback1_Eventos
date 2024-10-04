@@ -19,15 +19,13 @@ class LoginActivity : ComponentActivity() {
             if (showRegisterScreen) {
                 RegisterScreen(
                     onRegister = { username: String, password: String, showMessage ->
-                        UserManager.registerUser(username, password) { success ->
+                        UserManager.registerUser(username, password) { success, message ->
+                            showMessage(message)
                             if (success) {
-                                showMessage("User registered successfully")
                                 val intent = Intent(this, MenuUsuarioActivity::class.java)
                                 intent.putExtra("username", username)
                                 startActivity(intent)
                                 finish()
-                            } else {
-                                showMessage("Registration failed")
                             }
                         }
                     },

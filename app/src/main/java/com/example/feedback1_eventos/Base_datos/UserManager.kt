@@ -27,12 +27,22 @@ object UserManager {
             }
     }
 
-    fun registerUser(username: String, password: String, callback: (Boolean) -> Unit) {
-        val user = User(username, password)
+    fun registerUser(username: String, password: String, callback: (Boolean, String) -> Unit) {
         val userRef = db.collection("users").document(username)
-        userRef.set(user)
-            .addOnSuccessListener { callback(true) }
-            .addOnFailureListener { callback(false) }
+        userRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    callback(false, "Username already exists")
+                } else {
+                    val user = User(username, password)
+                    userRef.set(user)
+                        .addOnSuccessListener { callback(true, "User registered successfully") }
+                        .addOnFailureListener { callback(false, "Registration failed") }
+                }
+            }
+            .addOnFailureListener {
+                callback(false, "Error checking username")
+            }
     }
 
     fun addNovelaToUser(username: String, novela: Novela) {
