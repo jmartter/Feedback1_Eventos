@@ -1,4 +1,4 @@
-// LoginScreen.kt
+// RegisterScreen.kt
 package com.example.feedback1_eventos
 
 import androidx.compose.foundation.layout.*
@@ -11,9 +11,9 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun LoginScreen(
-    onLogin: (String, String, (String) -> Unit) -> Unit,
-    onNavigateToRegister: () -> Unit,
+fun RegisterScreen(
+    onRegister: (String, String, (String) -> Unit) -> Unit,
+    onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var username by remember { mutableStateOf("") }
@@ -26,34 +26,34 @@ fun LoginScreen(
             .padding(16.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Login", fontSize = 24.sp, modifier = Modifier.padding(bottom = 16.dp))
+        Text(text = "Crear nuevo usuario", fontSize = 24.sp, modifier = Modifier.padding(bottom = 16.dp))
         OutlinedTextField(
             value = username,
             onValueChange = { username = it },
-            label = { Text("Username") },
+            label = { Text("Nuevo nombre de usuario") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") },
+            label = { Text("Nueva contraseña") },
             modifier = Modifier.fillMaxWidth(),
             visualTransformation = PasswordVisualTransformation()
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { onLogin(username, password) { msg -> message = msg } },
+            onClick = { onRegister(username, password) { msg -> message = msg } },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Entrar")
+            Text("Crear")
         }
         Spacer(modifier = Modifier.height(8.dp))
         Button(
-            onClick = onNavigateToRegister,
+            onClick = onBack,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Crear nuevo usuario")
+            Text("Volver")
         }
         message?.let {
             Snackbar(
@@ -70,6 +70,6 @@ fun LoginScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun LoginScreenPreview() {
-    LoginScreen(onLogin = { _, _, _ -> }, onNavigateToRegister = {})
+fun RegisterScreenPreview() {
+    RegisterScreen(onRegister = { _, _, _ -> }, onBack = {})
 }

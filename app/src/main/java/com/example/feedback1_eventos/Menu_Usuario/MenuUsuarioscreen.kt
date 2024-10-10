@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.feedback1_eventos.Inicio.LoginActivity
 
 @Composable
-fun MenuUsuarioScreen(userName: String, onBack: () -> Unit, onAddNovela: () -> Unit, onViewUserNovelas: () -> Unit, onViewInitialNovelas: () -> Unit, modifier: Modifier = Modifier) {
+fun MenuUsuarioScreen(userName: String, onBack: () -> Unit, onAddNovela: () -> Unit, onViewUserNovelas: () -> Unit, modifier: Modifier = Modifier) {
     val context = LocalContext.current
 
     Scaffold { innerPadding ->
@@ -30,37 +30,39 @@ fun MenuUsuarioScreen(userName: String, onBack: () -> Unit, onAddNovela: () -> U
                     val intent = Intent(context, LoginActivity::class.java)
                     context.startActivity(intent)
                 },
-                modifier = Modifier.align(Alignment.TopStart).padding(16.dp)
+                modifier = Modifier.padding(16.dp)
             ) {
                 Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
             }
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp),
+                    .padding(top = 64.dp), // Adjust padding to place the text below the back button
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = "Bienvenido $userName", fontSize = 24.sp, modifier = Modifier.padding(bottom = 16.dp))
+            }
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Welcome to MenuUsuario, $userName", fontSize = 24.sp, modifier = Modifier.padding(bottom = 16.dp))
                 Button(
                     onClick = onAddNovela,
-                    modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Text("Añadir Novela")
                 }
+                Spacer(modifier = Modifier.height(8.dp))
                 Button(
                     onClick = onViewUserNovelas,
-                    modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Ver Mis Novelas")
+                    Text("Ver Novelas")
                 }
-                Button(
-                    onClick = onViewInitialNovelas,
-                    modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
-                ) {
-                    Text("Ver Otras Novelas")
-                }
-
             }
         }
     }
@@ -69,5 +71,5 @@ fun MenuUsuarioScreen(userName: String, onBack: () -> Unit, onAddNovela: () -> U
 @Preview(showBackground = true)
 @Composable
 fun MenuUsuarioScreenPreview() {
-    MenuUsuarioScreen(userName = "User", onBack = {}, onAddNovela = {}, onViewUserNovelas = {}, onViewInitialNovelas = {})
+    MenuUsuarioScreen(userName = "User", onBack = {}, onAddNovela = {}, onViewUserNovelas = {})
 }

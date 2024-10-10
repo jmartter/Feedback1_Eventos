@@ -6,7 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "users")
 data class User(
-    @PrimaryKey val username: String,
-    val password: String,
-    val novelas: MutableList<Novela> = mutableListOf() // Add a list of novels
-)
+    @PrimaryKey val username: String = "",
+    val password: String = "",
+    val novelas: MutableList<Novela> = mutableListOf()
+) {
+    constructor() : this("", "", mutableListOf())
+}
