@@ -74,7 +74,7 @@ El código de este proyecto se encuentra en la siguiente ruta:
     <td><img src="app/src/main/res/drawable/anadirnovela.png" alt="AñadirNovela" width="200"/></td>
     <td><img src="app/src/main/res/drawable/muestrafire.png" alt="Muestra de Firebase" width="200"/></td>
     <td><img src="app/src/main/res/drawable/menu.png" alt="Menu" width="200"/></td>
-    <td><img src="app/src/main/res/drawable/informacionnovelapng" alt="Información Novela" width="200"/></td>
+    <td><img src="app/src/main/res/drawable/informacionnovela.png" alt="Información Novela" width="200"/></td>
     <td><img src="app/src/main/res/drawable/login.png" alt="Login" width="200"/></td>
   </tr>
 </table>
