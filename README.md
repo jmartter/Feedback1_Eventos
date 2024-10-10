@@ -63,8 +63,6 @@ El código de este proyecto se encuentra en la siguiente ruta:
 <table>
   <tr>
     <th>AñadirNovela</th>
-    <th>Nombre</th>
-    <th>MuestraFire</th>
     <th>Muestra de Firebase</th>
     <th>Menu</th>
     <th>Información Novela</th>
