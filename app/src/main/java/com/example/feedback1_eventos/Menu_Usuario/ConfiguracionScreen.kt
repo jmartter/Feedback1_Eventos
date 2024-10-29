@@ -1,5 +1,6 @@
 package com.example.feedback1_eventos
 
+import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -7,11 +8,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun ConfiguracionScreen(onBack: () -> Unit) {
-    var isDarkTheme by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    var isDarkTheme by remember { mutableStateOf(ThemeManager.isDarkTheme(context)) }
 
     MaterialTheme(
         colorScheme = if (isDarkTheme) darkColorScheme() else lightColorScheme()
@@ -30,13 +33,18 @@ fun ConfiguracionScreen(onBack: () -> Unit) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     IconButton(
-                        onClick = onBack,
+                        onClick = {
+                            ThemeManager.setDarkTheme(context, isDarkTheme)
+                            onBack()
+                        },
                         modifier = Modifier.align(Alignment.Start).padding(16.dp)
                     ) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
                     Spacer(modifier = Modifier.height(16.dp))
-                    Button(onClick = { isDarkTheme = !isDarkTheme }) {
+                    Button(onClick = {
+                        isDarkTheme = !isDarkTheme
+                    }) {
                         Text(text = if (isDarkTheme) "Switch to Light Mode" else "Switch to Dark Mode")
                     }
                 }
