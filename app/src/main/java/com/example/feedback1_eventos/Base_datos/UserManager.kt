@@ -1,4 +1,3 @@
-// UserManager.kt
 package com.example.feedback1_eventos.Base_datos
 
 import com.google.firebase.firestore.FieldValue
