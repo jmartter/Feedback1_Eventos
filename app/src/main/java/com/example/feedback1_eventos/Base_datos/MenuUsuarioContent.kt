@@ -4,11 +4,13 @@ import com.example.feedback1_eventos.AddNovelaScreen
 import com.example.feedback1_eventos.Base_datos.Novela
 import com.example.feedback1_eventos.Base_datos.UserManager
 import com.example.feedback1_eventos.MenuUsuarioScreen
+import com.example.feedback1_eventos.ConfiguracionScreen
 
 @Composable
 fun MenuUsuarioContent(userName: String) {
     var showAddNovelaScreen by remember { mutableStateOf(false) }
     var showUserNovelasScreen by remember { mutableStateOf(false) }
+    var showConfiguracionScreen by remember { mutableStateOf(false) }
     var novelas by remember { mutableStateOf<List<Novela>>(emptyList()) }
 
     LaunchedEffect(showUserNovelasScreen) {
@@ -36,18 +38,21 @@ fun MenuUsuarioContent(userName: String) {
                 onBack = { showUserNovelasScreen = false },
                 onDeleteNovela = { novela ->
                     UserManager.deleteNovelaFromUser(userName, novela)
-                    novelas = novelas - novela // Update the novelas list
+                    novelas = novelas - novela
                 },
                 username = userName
             )
         }
+        showConfiguracionScreen -> {
+            ConfiguracionScreen(onBack = { showConfiguracionScreen = false })
+        }
         else -> {
             MenuUsuarioScreen(
                 userName = userName,
-                onBack = {
-                },
+                onBack = {},
                 onAddNovela = { showAddNovelaScreen = true },
-                onViewUserNovelas = { showUserNovelasScreen = true }
+                onViewUserNovelas = { showUserNovelasScreen = true },
+                onConfiguracion = { showConfiguracionScreen = true }
             )
         }
     }

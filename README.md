@@ -76,3 +76,27 @@ El código de este proyecto se encuentra en la siguiente ruta:
     <td><img src="app/src/main/res/drawable/login.png" alt="Login" width="200"/></td>
   </tr>
 </table>
+
+## Gestión de Temas
+
+### `ThemeManager.kt`
+- **Objeto `ThemeManager`**: Gestiona el tema oscuro/claro de la aplicación.
+  - `loadTheme(context: Context)`: Carga el tema actual desde las preferencias compartidas.
+  - `setDarkTheme(context: Context, isDarkTheme: Boolean)`: Establece el tema oscuro o claro y guarda la preferencia.
+
+### `ConfiguracionScreen.kt`
+- **Función `ConfiguracionScreen`**: Define la UI para la pantalla de configuración donde los usuarios pueden cambiar el tema de la aplicación.
+  - Utiliza `ThemeManager` para cambiar entre tema oscuro y claro.
+  - Observa los cambios en el tema utilizando `StateFlow`.
+
+### `MenuUsuarioActivity.kt`
+- **Clase `MenuUsuarioActivity`**: Configura la pantalla del menú de usuario y aplica el tema seleccionado.
+  - Carga el tema actual al iniciar la actividad.
+  - Observa los cambios en el tema utilizando `StateFlow`.
+
+### Funcionamiento
+1. **Inicialización del Tema**: `ThemeManager.loadTheme(context)` se llama en `MenuUsuarioActivity` para cargar el tema actual al iniciar la actividad.
+2. **Cambio de Tema**: En `ConfiguracionScreen`, los usuarios pueden cambiar el tema utilizando un botón que llama a `ThemeManager.setDarkTheme(context, isDarkTheme)`.
+3. **Observación de Cambios**: Tanto `MenuUsuarioActivity` como `ConfiguracionScreen` observan los cambios en el tema utilizando `ThemeManager.isDarkTheme.collectAsState()` y aplican el tema correspondiente utilizando `MaterialTheme`.
+
+Con estos cambios, la aplicación actualiza el tema de manera inmediata cuando se cambia en la pantalla de configuración.

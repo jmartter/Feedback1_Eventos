@@ -11,12 +11,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.feedback1_eventos.Inicio.LoginActivity
 
 @Composable
-fun MenuUsuarioScreen(userName: String, onBack: () -> Unit, onAddNovela: () -> Unit, onViewUserNovelas: () -> Unit, modifier: Modifier = Modifier) {
+fun MenuUsuarioScreen(userName: String, onBack: () -> Unit, onAddNovela: () -> Unit, onViewUserNovelas: () -> Unit, onConfiguracion: () -> Unit, modifier: Modifier = Modifier) {
     val context = LocalContext.current
 
     Scaffold { innerPadding ->
@@ -63,6 +64,15 @@ fun MenuUsuarioScreen(userName: String, onBack: () -> Unit, onAddNovela: () -> U
                 ) {
                     Text("Ver Novelas")
                 }
+                Spacer(modifier = Modifier.height(8.dp))
+                Button(
+                    onClick = onConfiguracion,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Icon(Icons.Filled.Settings, contentDescription = "Configuración")
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Configuración")
+                }
             }
         }
     }
@@ -71,5 +81,5 @@ fun MenuUsuarioScreen(userName: String, onBack: () -> Unit, onAddNovela: () -> U
 @Preview(showBackground = true)
 @Composable
 fun MenuUsuarioScreenPreview() {
-    MenuUsuarioScreen(userName = "User", onBack = {}, onAddNovela = {}, onViewUserNovelas = {})
+    MenuUsuarioScreen(userName = "User", onBack = {}, onAddNovela = {}, onViewUserNovelas = {}, onConfiguracion = {})
 }
