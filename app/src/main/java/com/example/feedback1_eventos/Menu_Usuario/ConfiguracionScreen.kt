@@ -1,3 +1,4 @@
+// ConfiguracionScreen.kt
 package com.example.feedback1_eventos
 
 import androidx.compose.foundation.layout.*
@@ -14,7 +15,7 @@ import com.example.feedback1_eventos.Tema.ThemeManager
 @Composable
 fun ConfiguracionScreen(onBack: () -> Unit) {
     val context = LocalContext.current
-    var isDarkTheme by remember { mutableStateOf(ThemeManager.isDarkTheme(context)) }
+    val isDarkTheme by ThemeManager.isDarkTheme.collectAsState()
 
     MaterialTheme(
         colorScheme = if (isDarkTheme) darkColorScheme() else lightColorScheme()
@@ -43,7 +44,7 @@ fun ConfiguracionScreen(onBack: () -> Unit) {
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = {
-                        isDarkTheme = !isDarkTheme
+                        ThemeManager.setDarkTheme(context, !isDarkTheme)
                     }) {
                         Text(text = if (isDarkTheme) "Switch to Light Mode" else "Switch to Dark Mode")
                     }

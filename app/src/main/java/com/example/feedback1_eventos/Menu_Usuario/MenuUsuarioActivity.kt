@@ -1,3 +1,4 @@
+// MenuUsuarioActivity.kt
 package com.example.feedback1_eventos.Inicio
 
 import MenuUsuarioContent
@@ -15,9 +16,10 @@ class MenuUsuarioActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val userName = intent.getStringExtra("username") ?: "User"
+        ThemeManager.loadTheme(this)
         setContent {
             val context = LocalContext.current
-            var isDarkTheme by remember { mutableStateOf(ThemeManager.isDarkTheme(context)) }
+            val isDarkTheme by ThemeManager.isDarkTheme.collectAsState()
 
             MaterialTheme(
                 colorScheme = if (isDarkTheme) darkColorScheme() else lightColorScheme()
