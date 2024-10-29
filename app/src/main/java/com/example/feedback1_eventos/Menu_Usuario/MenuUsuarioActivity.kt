@@ -9,7 +9,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
-import com.example.feedback1_eventos.ThemeManager
+import com.example.feedback1_eventos.Tema.ThemeManager
 
 class MenuUsuarioActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

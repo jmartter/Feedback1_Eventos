@@ -1,5 +1,5 @@
 // ThemeManager.kt
-package com.example.feedback1_eventos
+package com.example.feedback1_eventos.Tema
 
 import android.content.Context
 import android.content.SharedPreferences

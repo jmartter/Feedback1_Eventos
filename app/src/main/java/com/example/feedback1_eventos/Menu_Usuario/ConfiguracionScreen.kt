@@ -1,6 +1,5 @@
 package com.example.feedback1_eventos
 
-import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -10,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.feedback1_eventos.Tema.ThemeManager
 
 @Composable
 fun ConfiguracionScreen(onBack: () -> Unit) {
